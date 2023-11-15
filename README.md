@@ -12,7 +12,7 @@ go build -o hacktool
 # Install pre-compiled binary
 1. Download newest release
 2. Extract
-3. Edit install.sh to choose install path
+3. ```INSTALLPATH=/insert/install/path```
 4. ```./install.sh``` OR ```sudo ./install``` (if chosen install path is root owned)
 
 Made with love by ketmore @ Runtek Software <dangeloizquierdo@gmail.com>
