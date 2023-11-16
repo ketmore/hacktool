@@ -84,7 +84,7 @@ func checkVulnerabilities(installedSoftware []SoftwarePackage) ([]SoftwarePackag
 // queryNVD queries the NVD API for vulnerabilities
 func queryNVD(packageName, packageVersion string) (string, error) {
 	// Construct the API URL based on the package name and version
-	apiURL := fmt.Sprintf("https://services.nvd.nist.gov/rest/json/cves/1.0?cpeMatchString=cpe:/a:%s:%s", packageName, packageVersion)
+	apiURL := fmt.Sprintf("https://services.nvd.nist.gov/rest/json/cves/2.0?cpeMatchString=cpe:/a:%s:%s", packageName, packageVersion)
 
 	// Make the API request
 	resp, err := resty.New().R().Get(apiURL)
