@@ -11,11 +11,12 @@ mkdir ~/.hacktool ~/.hacktool/logs
 (to install: mv hacktool /insert/preffered/path)
 
 # Install pre-compiled binary
-1. Download newest release
-2. Extract
-3. ```INSTALLPATH=/insert/install/path```
-4. ```./install.sh``` OR ```sudo ./install``` (if chosen install path is root owned)
-5. Run:```hacktool```
+1. Download newest release tarball: https://github.com/ketmore/hacktool/releases
+2. Extract: ```tar -xf hacktool_RELEASE*.tar.gz```
+3. Set install path (I use /usr/local/bin):```INSTALLPATH=/insert/install/path```
+4. Install binary:```cp bin/hacktool $INSTALLPATH``` OR ```sudo cp bin/hacktool $INSTALLPATH``` (if chosen install path is root owned)
+5. Create logs directory:```mkdir ~/.hacktool ~/.hacktool/logs```
+6. Run:```hacktool```
 
 # About
 Made with love by ketmore @ Runtek Software <dangeloizquierdo@gmail.com>
