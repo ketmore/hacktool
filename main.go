@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"os/exec"
+	"io"
+	"os"
 	"strings"
-
+	"time"
 	"github.com/go-resty/resty/v2"
 )
 
@@ -33,30 +35,9 @@ type SoftwarePackage struct {
 	Version string
 }
 
+// Main function outputs data from results function
 func main() {
-	// Get a list of installed software packages
-	installedSoftware, err := getInstalledSoftware()
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-
-	// Check for vulnerabilities using NVD
-	vulnerablePackages, err := checkVulnerabilities(installedSoftware)
-	if err != nil {
-		fmt.Println("Error checking vulnerabilities:", err)
-		return
-	}
-
-	// Display the results
-	if len(vulnerablePackages) > 0 {
-		fmt.Println("Vulnerable software found:")
-		for _, pkg := range vulnerablePackages {
-			fmt.Printf("%s %s\n", pkg.Name, pkg.Version)
-		}
-	} else {
-		fmt.Println("\nNo vulnerable software found.\n")
-	}
+	results()
 }
 
 // getInstalledSoftware retrieves a list of installed software packages
@@ -125,4 +106,45 @@ func queryNVD(packageName, packageVersion string) (string, error) {
 	}
 
 	return "", nil
+}
+
+func results(){
+	// Get a list of installed software packages
+	installedSoftware, err := getInstalledSoftware()
+	// Get user home folder
+	home, err := os.UserHomeDir()
+	// Set working path for logs
+	logFolderPath := (home + "/.hacktool/logs/")
+	// Get time for logs
+	currentTime := time.Now()
+	fn := currentTime.Format("2006-1-2_15-4-5")
+	// Set format for log files
+	logFile := (logFolderPath + fn)
+	// Open empty log file
+	file, err := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_EXCL, 0666)
+	// Error handling for logs directory
+	if os.IsNotExist(err) {
+	    fmt.Println("Error saving logs, please make sure ~/.hacktool/logs exists.")
+	}
+	// Send Stdout to logCurrent(RAM) and log file(DISK)
+	logCurrent := io.MultiWriter(os.Stdout, file)
+	if err != nil {
+		fmt.Fprintln(logCurrent,"-Error:",currentTime, err)
+		return
+	}
+	// Check for vulnerabilities using NVD
+	vulnerablePackages, err := checkVulnerabilities(installedSoftware)
+	if err != nil {
+		fmt.Fprintln(logCurrent,"-Error checking vulnerabilities:",currentTime, err)
+		return
+	}
+	// Display the results
+	if len(vulnerablePackages) > 0 {
+		fmt.Fprintln(logCurrent,"-Vulnerable software found:",currentTime)
+		for _, pkg := range vulnerablePackages {
+			fmt.Printf("%s %s\n", pkg.Name, pkg.Version)
+		}
+	} else {
+		fmt.Fprintln(logCurrent,"\n-No vulnerable software found.\n",currentTime)
+	}
 }
