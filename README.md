@@ -17,8 +17,11 @@ mkdir ~/.hacktool ~/.hacktool/logs
 4. ```./install.sh``` OR ```sudo ./install``` (if chosen install path is root owned)
 
 Made with love by ketmore @ Runtek Software <dangeloizquierdo@gmail.com>
+
 Special thanks to:
+
 github.com/go-resty/resty/v2 - for handling api requests
+
 nvd.nist.gov - for CVE data
 
 (NOTE: Vulnerability data is updated independently from hacktool, ensuring access to newest data even when using a deprecated version.)
