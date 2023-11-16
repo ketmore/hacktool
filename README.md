@@ -6,6 +6,7 @@ Works on all macOS versions.
 ```
 go mod tidy
 go build -o hacktool
+mkdir ~/.hacktool ~/.hacktool/logs
 ```
 (to install: mv hacktool /insert/preffered/path)
 
