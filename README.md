@@ -15,6 +15,7 @@ mkdir ~/.hacktool ~/.hacktool/logs
 2. Extract
 3. ```INSTALLPATH=/insert/install/path```
 4. ```./install.sh``` OR ```sudo ./install``` (if chosen install path is root owned)
+5. Run:```hacktool```
 
 # About
 Made with love by ketmore @ Runtek Software <dangeloizquierdo@gmail.com>
