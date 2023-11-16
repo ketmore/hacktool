@@ -1,6 +1,7 @@
 # hacktool
 Scans your homebrew packages for any vulnerabilities listed in the National Vulnerability Databse (CVEs).
-Works on all macOS versions. 
+Works on all macOS versions (that support homebrew).
+Tested on macOS 12.2-14.1.1.
 
 # Build
 ```
